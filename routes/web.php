@@ -23,3 +23,9 @@ require __DIR__.'/auth.php';
 use App\Http\Controllers\AnimalController;
 Route::get('/animals', [AnimalController::class, 'index'])->name('animals');
 Route::resource('animals', AnimalController::class);
+
+
+
+use App\Http\Controllers\PositionController;
+Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
+Route::resource('positions', PositionController::class);
