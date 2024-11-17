@@ -1,146 +1,123 @@
-<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZooCompass</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Estilos customizados -->
     <style>
         body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #567d5f;
-    color: #333;
-}
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #567d5f;
+            color: #333;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-.sidebar {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    bottom: 0;
-    background-color: #6e9b77;
-    width: 250px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
-    padding-top: 4rem;
-}
+        header, footer {
+            flex-shrink: 0;
+        }
 
-.sidebar ul.nav.flex-column {
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-}
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            min-height: 0; /* Para ajustar corretamente na responsividade */
+        }
 
-.sidebar ul.nav.flex-column li.nav-item a.nav-link {
-    color: #f8f9fa;
-}
 
-.sidebar ul.nav.flex-column li.nav-item a.nav-link:hover {
-    background-color: #88b892;
-}
+        .ul.nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-.main-content {
-    position: absolute;
-    top: 60px;
-    left: 250px;
-    right: 0;
-    bottom: 0;
-    padding: 7px;
-    transition: all 0.3s;
-}
+        .ul.nav li {
+            padding: 10px 20px;
+        }
 
-.navbar {
-    background-color: #6e9b77;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+        .ul.nav li a {
+            color: #f8f9fa;
+            text-decoration: none;
+        }
 
-.sidebar-brand {
-    color: #f8f9fa;
-    padding: 15px 20px;
-    font-size: 24px;
-    text-align: center;
-}
+        .ul.nav li a:hover {
+            background-color: #88b892;
+            border-radius: 5px;
+        }
 
-.sidebar-brand img {
-    width: 100px;
-    display: block;
-    margin: auto;
-    margin-bottom: 15px;
-    border-radius: 50%;
-}
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #fff;
+            overflow-y: auto;
+        }
 
-.sidebar ul.nav.flex-column li.nav-item {
-    padding-top: 10px;
-    font-size: 20px;
-}
+        .navbar {
+            background-color: #6e9b77;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
 
-.sidebar ul li a:active {
-    background-color: #88b892;
-}
-#navbardropmenu {
-    background-color: #6e9b77;
-}
-.drophover:hover{
-    background-color: #88b892;
-}
+        .navbar-brand img {
+            height: 45px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #6e9b77;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <header>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="admin.php">
-            <img src="{{ asset('imgs/logo.png') }}" alt="Logo do Zoológico" height="45"> Zoo Compass
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            paulo
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" id="navbardropmenu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item drophover" href="#" data-bs-toggle="modal" data-bs-target="#informacaoModal">Conta</a></li>
-                            <li><a class="dropdown-item drophover" href="#" data-bs-toggle="modal" data-bs-target="#trocarSenhaModal">Trocar Senha</a></li>
-                            <li><a class="dropdown-item drophover" href="#" data-bs-toggle="modal" data-bs-target="#excluirContaModal">Excluir Conta</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item drophover" href="../login/logout.php">Sair</a></li>
-                            <li><a class="dropdown-item drophover" href="../index.php">Modo Usuário</a></li>
-                        </ul>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ route('dashboard') }}">
+                    <img src="{{ asset('imgs/logo.png') }}" alt="Logo do Zoológico"> Zoo Compass
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" role="button">Paulo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><img src="{{ asset('imgs/engre.png') }}" alt="Configurações" height="28"></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <div class="sidebar d-md-block collapse" id="sidebar" style="padding-top: 20px;">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="admin_animais.php">Gerenciar Animais</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="admin_estoque.php">Gerenciar Estoque</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="admin_funcionarios.php">Gerenciar Funcionários</a>
-            </li>
-        </ul>
-    </div>
+        </nav>
     </header>
 
-    <main>
-        @yield('content') <!-- Aqui será injetado o conteúdo da seção 'content' -->
-    </main>
+    <div class="content-wrapper">
+        
+
+        <!-- Conteúdo Principal -->
+        <div class="main-content" style="background-color: #567d5f; margin-top: 71px">
+            @yield('content')
+        </div>
+    </div>
 
     <footer>
-        <!-- Rodapé -->
-        <p>&copy; 2024 ZooCompass</p>
+        &copy; 2024 ZooCompass. Todos os direitos reservados.
     </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

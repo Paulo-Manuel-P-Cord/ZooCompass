@@ -19,5 +19,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+
 use App\Http\Controllers\AnimalController;
+Route::get('/animals', [AnimalController::class, 'index'])->name('animals');
 Route::resource('animals', AnimalController::class);
