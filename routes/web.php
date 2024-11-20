@@ -34,3 +34,7 @@ Route::resource('positions', PositionController::class);
 
 use App\Http\Controllers\WorkerController;
 Route::resource('workers', WorkerController::class);
+
+
+use App\Http\Controllers\MaintenanceController;
+Route::resource('maintenances', MaintenanceController::class);
