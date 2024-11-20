@@ -11,6 +11,11 @@ class Position extends Model
 
     protected $fillable = [
         'title',
-        'description', 
+        // outros campos que você tenha na tabela positions
     ];
+
+    public function workers()
+    {
+        return $this->hasMany(Worker::class);
+    }
 }

@@ -19,7 +19,7 @@
 
     <!-- Tabela de posições -->
     <div class="table-responsive">
-        <table class="table table-success table-bordered">
+        <table class="table table-success table-bordered table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>Título</th>

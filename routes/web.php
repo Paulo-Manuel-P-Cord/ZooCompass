@@ -29,3 +29,8 @@ Route::resource('animals', AnimalController::class);
 use App\Http\Controllers\PositionController;
 Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
 Route::resource('positions', PositionController::class);
+
+
+
+use App\Http\Controllers\WorkerController;
+Route::resource('workers', WorkerController::class);
