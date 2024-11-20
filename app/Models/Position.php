@@ -11,7 +11,7 @@ class Position extends Model
 
     protected $fillable = [
         'title',
-        // outros campos que você tenha na tabela positions
+        
     ];
 
     public function workers()

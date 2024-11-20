@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h1 class="mb-4">Criar Novo Animal</h1> <!-- Título em verde -->
+    <h1 class="mb-4">Criar Novo Animal</h1> 
 
     <!-- Formulário -->
     <form action="{{ isset($animal) ? route('animals.update', $animal->id) : route('animals.store') }}" method="POST" class="row g-3">

@@ -47,3 +47,7 @@ Route::resource('maintenances', MaintenanceController::class);
 use App\Http\Controllers\StockCategoryController;
 Route::resource('stock_categories', StockCategoryController::class);
 
+
+use App\Http\Controllers\StoreController;
+Route::resource('stores', StoreController::class);
+
