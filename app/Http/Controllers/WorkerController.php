@@ -6,12 +6,17 @@ use App\Models\Worker;
 use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth; 
 
 class WorkerController extends Controller
 {
     // Método para mostrar o formulário de criação
     public function create()
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         // Aqui usamos um JOIN, mas normalmente você só precisaria da tabela positions
         $positions = DB::table('positions')
             ->select('positions.id', 'positions.title') // Seleciona o ID e o título
@@ -23,6 +28,10 @@ class WorkerController extends Controller
     // Método para armazenar o trabalhador
     public function store(Request $request)
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         $request->validate([
             'name' => 'required|string|max:100',
             'position_id' => 'required|integer|exists:positions,id',
@@ -40,12 +49,20 @@ class WorkerController extends Controller
     // Método para listar os trabalhadores (opcional)
     public function index()
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         $workers = Worker::with('position')->get(); // Carrega os trabalhadores e suas posições
         return view('workers.index', compact('workers'));
     }
 
     public function edit($id)
 {
+    if (!Auth::check() || Auth::id() !== 1) {
+        return redirect()->route('login');
+    }
+
     // Recupera o trabalhador pelo ID
     $worker = Worker::findOrFail($id);
 
@@ -59,6 +76,10 @@ class WorkerController extends Controller
 
 public function destroy($id)
 {
+    if (!Auth::check() || Auth::id() !== 1) {
+        return redirect()->route('login');
+    }
+
     // Recupera o trabalhador pelo ID
     $worker = Worker::findOrFail($id);
 
@@ -70,6 +91,10 @@ public function destroy($id)
 }
 public function update(Request $request, $id)
 {
+    if (!Auth::check() || Auth::id() !== 1) {
+        return redirect()->route('login');
+    }
+    
     // Validação dos dados enviados
     $request->validate([
         'name' => 'required|string|max:255',

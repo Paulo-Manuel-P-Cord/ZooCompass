@@ -6,17 +6,26 @@ use App\Models\Maintenance;
 use App\Models\Animal;
 use App\Models\Worker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
 
 class MaintenanceController extends Controller
 {
     public function index()
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         $maintenances = Maintenance::all();
         return view('maintenances.index', compact('maintenances'));
     }
 
     public function create()
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         $animals = Animal::all(); // Para listar os animais
         $workers = Worker::with('position')->get()->sortBy('position.title'); // Para listar os trabalhadores com cargo, ordenados por cargo
         return view('maintenances.create', compact('animals', 'workers'));
@@ -24,6 +33,11 @@ class MaintenanceController extends Controller
 
     public function store(Request $request)
     {
+
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         $request->validate([
             'description' => 'required|string|max:255',
             'date' => 'required|date',
@@ -40,11 +54,19 @@ class MaintenanceController extends Controller
 
     public function show(Maintenance $maintenance)
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         return view('maintenances.show', compact('maintenance'));
     }
 
     public function edit(Maintenance $maintenance)
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         $animals = Animal::all(); // Para listar os animais
         $workers = Worker::with('position')->get()->sortBy('position.title'); // Para listar os trabalhadores com cargo, ordenados por cargo
         return view('maintenances.edit', compact('maintenance', 'animals', 'workers'));
@@ -52,6 +74,10 @@ class MaintenanceController extends Controller
 
     public function update(Request $request, Maintenance $maintenance)
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+
         $request->validate([
             'description' => 'required|string|max:255',
             'date' => 'required|date',
@@ -68,6 +94,10 @@ class MaintenanceController extends Controller
 
     public function destroy(Maintenance $maintenance)
     {
+        if (!Auth::check() || Auth::id() !== 1) {
+            return redirect()->route('login');
+        }
+        
         $maintenance->delete();
         return redirect()->route('maintenances.index')->with('success', 'Manutenção deletada com sucesso.');
     }
