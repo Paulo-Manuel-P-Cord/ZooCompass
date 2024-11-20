@@ -10,26 +10,24 @@ use Illuminate\Support\Facades\Auth;
 
 class WorkerController extends Controller
 {
-    // Método para mostrar o formulário de criação
+
     public function create()
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
-        // Aqui usamos um JOIN, mas normalmente você só precisaria da tabela positions
         $positions = DB::table('positions')
-            ->select('positions.id', 'positions.title') // Seleciona o ID e o título
+            ->select('positions.id', 'positions.title') 
             ->get();
 
         return view('workers.create', compact('positions'));
     }
 
-    // Método para armazenar o trabalhador
     public function store(Request $request)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         $request->validate([
@@ -40,36 +38,31 @@ class WorkerController extends Controller
             'hire_date' => 'required|date',
         ]);
 
-        // Cria o trabalhador com os dados do request
         Worker::create($request->all());
 
         return redirect()->route('workers.index')->with('success', 'Trabalhador criado com sucesso.');
     }
 
-    // Método para listar os trabalhadores (opcional)
     public function index()
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
-        $workers = Worker::with('position')->get(); // Carrega os trabalhadores e suas posições
+        $workers = Worker::with('position')->get(); 
         return view('workers.index', compact('workers'));
     }
 
     public function edit($id)
 {
     if (!Auth::check() || Auth::id() !== 1) {
-        return redirect()->route('login');
+        return redirect()->route('welcome');
     }
 
-    // Recupera o trabalhador pelo ID
     $worker = Worker::findOrFail($id);
 
-    // Recupera todos os cargos disponíveis
-    $positions = Position::all(); // ou outro método apropriado para carregar os cargos
+    $positions = Position::all(); 
 
-    // Retorna a view com os dados necessários
     return view('workers.edit', compact('worker', 'positions'));
 }
 
@@ -77,25 +70,21 @@ class WorkerController extends Controller
 public function destroy($id)
 {
     if (!Auth::check() || Auth::id() !== 1) {
-        return redirect()->route('login');
+        return redirect()->route('welcome');
     }
 
-    // Recupera o trabalhador pelo ID
     $worker = Worker::findOrFail($id);
 
-    // Deleta o trabalhador
     $worker->delete();
 
-    // Redireciona de volta com mensagem de sucesso
     return redirect()->route('workers.index')->with('success', 'Funcionário deletado com sucesso!');
 }
 public function update(Request $request, $id)
 {
     if (!Auth::check() || Auth::id() !== 1) {
-        return redirect()->route('login');
+        return redirect()->route('welcome');
     }
-    
-    // Validação dos dados enviados
+
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:workers,email,' . $id,
@@ -104,10 +93,8 @@ public function update(Request $request, $id)
         'position_id' => 'required|exists:positions,id',
     ]);
 
-    // Recupera o trabalhador pelo ID
     $worker = Worker::findOrFail($id);
 
-    // Atualiza os dados
     $worker->update([
         'name' => $request->name,
         'email' => $request->email,
@@ -116,7 +103,6 @@ public function update(Request $request, $id)
         'position_id' => $request->position_id,
     ]);
 
-    // Redireciona com mensagem de sucesso
     return redirect()->route('workers.index')->with('success', 'Trabalhador atualizado com sucesso!');
 }
 }

@@ -13,7 +13,7 @@ class MaintenanceController extends Controller
     public function index()
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         $maintenances = Maintenance::all();
@@ -23,11 +23,11 @@ class MaintenanceController extends Controller
     public function create()
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
-        $animals = Animal::all(); // Para listar os animais
-        $workers = Worker::with('position')->get()->sortBy('position.title'); // Para listar os trabalhadores com cargo, ordenados por cargo
+        $animals = Animal::all(); 
+        $workers = Worker::with('position')->get()->sortBy('position.title'); 
         return view('maintenances.create', compact('animals', 'workers'));
     }
 
@@ -35,7 +35,7 @@ class MaintenanceController extends Controller
     {
 
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         $request->validate([
@@ -55,7 +55,7 @@ class MaintenanceController extends Controller
     public function show(Maintenance $maintenance)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         return view('maintenances.show', compact('maintenance'));
@@ -64,18 +64,18 @@ class MaintenanceController extends Controller
     public function edit(Maintenance $maintenance)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
-        $animals = Animal::all(); // Para listar os animais
-        $workers = Worker::with('position')->get()->sortBy('position.title'); // Para listar os trabalhadores com cargo, ordenados por cargo
+        $animals = Animal::all(); 
+        $workers = Worker::with('position')->get()->sortBy('position.title');
         return view('maintenances.edit', compact('maintenance', 'animals', 'workers'));
     }
 
     public function update(Request $request, Maintenance $maintenance)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         $request->validate([
@@ -95,7 +95,7 @@ class MaintenanceController extends Controller
     public function destroy(Maintenance $maintenance)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
         
         $maintenance->delete();

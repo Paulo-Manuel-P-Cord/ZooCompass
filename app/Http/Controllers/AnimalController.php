@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Animal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;  // Importa a classe Auth
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\DB;
 
 class AnimalController extends Controller
@@ -14,12 +14,12 @@ class AnimalController extends Controller
     public function index()
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
         $animals = Animal::all();
         
 
-        // Controller - Alteração na query para incluir o JOIN
+
         $animals = DB::table('animals')
         ->join('animal_type', 'animals.diet', '=', 'animal_type.id')
         ->select('animals.*', 'animal_type.diet as diet_name')
@@ -33,7 +33,7 @@ class AnimalController extends Controller
     public function create()
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         return view('animals.create');
@@ -42,7 +42,7 @@ class AnimalController extends Controller
     public function store(Request $request)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         $request->validate([
@@ -61,7 +61,7 @@ class AnimalController extends Controller
     public function show(Animal $animal)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         return view('animals.show', compact('animal'));
@@ -70,7 +70,7 @@ class AnimalController extends Controller
     public function edit(Animal $animal)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         return view('animals.edit', compact('animal'));
@@ -79,7 +79,7 @@ class AnimalController extends Controller
     public function update(Request $request, Animal $animal)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
 
         $request->validate([
@@ -97,7 +97,7 @@ class AnimalController extends Controller
     public function destroy(Animal $animal)
     {
         if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('login');
+            return redirect()->route('welcome');
         }
         
         $animal->delete();
