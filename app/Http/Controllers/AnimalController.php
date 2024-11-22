@@ -13,9 +13,10 @@ class AnimalController extends Controller
 
     public function index()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
+        
         $animals = Animal::all();
         
 
@@ -32,7 +33,7 @@ class AnimalController extends Controller
 
     public function create()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -41,7 +42,7 @@ class AnimalController extends Controller
 
     public function store(Request $request)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -60,7 +61,7 @@ class AnimalController extends Controller
 
     public function show(Animal $animal)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -69,7 +70,7 @@ class AnimalController extends Controller
 
     public function edit(Animal $animal)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -78,7 +79,7 @@ class AnimalController extends Controller
 
     public function update(Request $request, Animal $animal)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -96,7 +97,7 @@ class AnimalController extends Controller
 
     public function destroy(Animal $animal)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
         

@@ -11,7 +11,7 @@ class PositionController extends Controller
     
     public function index()
 {
-    if (!Auth::check() || Auth::id() !== 1) {
+    if (!Auth::check() || Auth::user()->position != 1) {
         return redirect()->route('welcome');
     }
 
@@ -24,7 +24,7 @@ class PositionController extends Controller
 
     public function create()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
         return view('positions.create');
@@ -32,7 +32,7 @@ class PositionController extends Controller
 
     public function store(Request $request)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
         $request->validate([
@@ -46,7 +46,7 @@ class PositionController extends Controller
 
     public function show(Position $position)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -55,7 +55,7 @@ class PositionController extends Controller
 
     public function edit(Position $position)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -64,7 +64,7 @@ class PositionController extends Controller
 
     public function update(Request $request, Position $position)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -79,7 +79,7 @@ class PositionController extends Controller
 
     public function destroy(Position $position)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 

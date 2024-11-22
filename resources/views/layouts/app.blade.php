@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,6 +73,29 @@
             height: 45px;
         }
 
+        .dropdown-menu {
+        background-color: #567d5f;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .dropdown-menu .dropdown-item {
+        color: #f8f9fa;
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #88b892;
+        color: #fff;
+    }
+
+    .nav-link, .navbar-brand {
+        color: #fff;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+        color: #cce3d3;
+    }
+
         footer {
             text-align: center;
             padding: 10px;
@@ -83,29 +107,79 @@
     
 </head>
 <body>
-    <header>
-        
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ route('dashboard') }}">
-                    <img src="{{ asset('imgs/logo.png') }}" alt="Logo do Zoológico"> Zoo Compass
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" role="button">Paulo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="{{ asset('imgs/engre.png') }}" alt="Configurações" height="28"></a>
-                        </li>
-                    </ul>
-                </div>
+    
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ route('admin.menu') }}">
+                <img src="{{ asset('imgs/logo.png') }}" alt="Logo do Zoológico"> Zoo Compass
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Menu Animais -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAnimals" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Animais
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownAnimals">
+                            <li><a class="dropdown-item" href="{{ route('animals.index') }}">Ver Animais</a></li>
+                            <li><a class="dropdown-item" href="{{ route('animals.create') }}">Criar Novo Animal</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menu Trabalhadores e Cargos -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownWorkers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Trabalhadores
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownWorkers">
+                            <li><a class="dropdown-item" href="{{ route('workers.index') }}">Ver Trabalhadores</a></li>
+                            <li><a class="dropdown-item" href="{{ route('workers.create') }}">Adicionar Trabalhador</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ route('positions.index') }}">Ver Cargos</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menu Estoque -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStock" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Estoque
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownStock">
+                            <li><a class="dropdown-item" href="{{ route('stores.index') }}">Ver Estoque</a></li>
+                            <li><a class="dropdown-item" href="{{ route('stores.create') }}">Adicionar Estoque</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ route('stock_categories.index') }}">Categorias de Estoque</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menu Manutenções -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStock" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Manutenções
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownStock">
+                            <li><a class="dropdown-item" href="{{ route('maintenances.index') }}">Ver Manutenções</a></li>
+                            <li><a class="dropdown-item" href="{{ route('maintenances.create') }}">Adicionar Manutenção</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Configurações e Usuário -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button">Paulo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><img src="{{ asset('imgs/engre.png') }}" alt="Configurações" height="28"></a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
+
 
     <div class="content-wrapper">
         

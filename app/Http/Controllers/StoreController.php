@@ -14,7 +14,7 @@ class StoreController extends Controller
     
     public function index()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -29,7 +29,7 @@ class StoreController extends Controller
 
     public function create()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -39,7 +39,7 @@ class StoreController extends Controller
 
     public function store(Request $request)
 {
-    if (!Auth::check() || Auth::id() !== 1) {
+    if (!Auth::check() || Auth::user()->position != 1) {
         return redirect()->route('welcome');
     }
 
@@ -62,7 +62,7 @@ class StoreController extends Controller
 
     public function show(Store $store)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -71,7 +71,7 @@ class StoreController extends Controller
 
     public function edit(Store $store)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -81,7 +81,7 @@ class StoreController extends Controller
 
     public function update(Request $request, Store $store)
 {
-    if (!Auth::check() || Auth::id() !== 1) {
+    if (!Auth::check() || Auth::user()->position != 1) {
         return redirect()->route('welcome');
     }
 
@@ -103,7 +103,7 @@ class StoreController extends Controller
 
     public function destroy(Store $store)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 

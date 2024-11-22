@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,7 +54,14 @@ Route::resource('stores', StoreController::class);
 
 
 
+
 Route::get('/admin/menu', function () {
+    // Verifica se o usuário está autenticado e se a posição é diferente de 1
+    if (!Auth::check() || Auth::user()->position != 1) {
+        return redirect()->route('welcome');
+    }
+
+    // Coleta os dados necessários
     $animals = [
         'species_by_diet' => \DB::table('animals')
             ->join('animal_type', 'animals.diet', '=', 'animal_type.id')
@@ -133,4 +141,3 @@ Route::get('/admin/menu', function () {
 
     return view('admin.menu', compact('modules'));
 })->middleware('auth')->name('admin.menu');
-

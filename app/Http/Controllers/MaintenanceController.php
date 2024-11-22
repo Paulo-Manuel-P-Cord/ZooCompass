@@ -12,7 +12,7 @@ class MaintenanceController extends Controller
 {
     public function index()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -22,7 +22,7 @@ class MaintenanceController extends Controller
 
     public function create()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -34,7 +34,7 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
 
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -54,7 +54,7 @@ class MaintenanceController extends Controller
 
     public function show(Maintenance $maintenance)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -63,7 +63,7 @@ class MaintenanceController extends Controller
 
     public function edit(Maintenance $maintenance)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -74,7 +74,7 @@ class MaintenanceController extends Controller
 
     public function update(Request $request, Maintenance $maintenance)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -94,7 +94,7 @@ class MaintenanceController extends Controller
 
     public function destroy(Maintenance $maintenance)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
         

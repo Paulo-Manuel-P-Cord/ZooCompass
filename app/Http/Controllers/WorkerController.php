@@ -13,7 +13,7 @@ class WorkerController extends Controller
 
     public function create()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -26,7 +26,7 @@ class WorkerController extends Controller
 
     public function store(Request $request)
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -45,7 +45,7 @@ class WorkerController extends Controller
 
     public function index()
     {
-        if (!Auth::check() || Auth::id() !== 1) {
+        if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
 
@@ -55,7 +55,7 @@ class WorkerController extends Controller
 
     public function edit($id)
 {
-    if (!Auth::check() || Auth::id() !== 1) {
+    if (!Auth::check() || Auth::user()->position != 1) {
         return redirect()->route('welcome');
     }
 
@@ -69,7 +69,7 @@ class WorkerController extends Controller
 
 public function destroy($id)
 {
-    if (!Auth::check() || Auth::id() !== 1) {
+    if (!Auth::check() || Auth::user()->position != 1) {
         return redirect()->route('welcome');
     }
 
@@ -81,7 +81,7 @@ public function destroy($id)
 }
 public function update(Request $request, $id)
 {
-    if (!Auth::check() || Auth::id() !== 1) {
+    if (!Auth::check() || Auth::user()->position != 1) {
         return redirect()->route('welcome');
     }
 
