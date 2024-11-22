@@ -17,6 +17,10 @@ class Worker extends Model
         'hire_date',
     ];
 
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
     public function category()
 {
     return $this->belongsTo(StockCategory::class, 'category'); 

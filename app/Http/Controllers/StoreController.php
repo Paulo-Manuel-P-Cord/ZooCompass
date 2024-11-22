@@ -38,20 +38,27 @@ class StoreController extends Controller
     }
 
     public function store(Request $request)
-    {
-        if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('welcome');
-        }
-
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'amount' => 'required|integer',
-            'category' => 'required|exists:stock_categories,id',
-        ]);
-
-        Store::create($request->all());
-        return redirect()->route('stores.index')->with('success', 'Item de estoque criado com sucesso.');
+{
+    if (!Auth::check() || Auth::id() !== 1) {
+        return redirect()->route('welcome');
     }
+
+    // Validação dos dados de entrada
+    $request->validate([
+        'name' => 'required|string|max:100',
+        'amount' => 'required|integer',
+        'category' => 'required|integer|exists:stock_categories,id',
+    ]);
+
+    // Cria o registro no banco de dados
+    Store::create([
+        'name' => $request->name,
+        'amount' => $request->amount,
+        'category' => $request->category,
+    ]);
+
+    return redirect()->route('stores.index')->with('success', 'Item de estoque criado com sucesso.');
+}
 
     public function show(Store $store)
     {
@@ -73,20 +80,26 @@ class StoreController extends Controller
     }
 
     public function update(Request $request, Store $store)
-    {
-        if (!Auth::check() || Auth::id() !== 1) {
-            return redirect()->route('welcome');
-        }
-
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'amount' => 'required|integer',
-            'category' => 'required|exists:stock_categories,id', 
-        ]);
-
-        $store->update($request->all());
-        return redirect()->route('stores.index')->with('success', 'Item de estoque atualizado com sucesso.');
+{
+    if (!Auth::check() || Auth::id() !== 1) {
+        return redirect()->route('welcome');
     }
+
+    $request->validate([
+        'name' => 'required|string|max:100',
+        'amount' => 'required|integer',
+        'category' => 'required|exists:stock_categories,id',
+    ]);
+
+    // Atualiza o registro no banco de dados
+    $store->update([
+        'name' => $request->name,
+        'amount' => $request->amount,
+        'category' => $request->category,
+    ]);
+
+    return redirect()->route('stores.index')->with('success', 'Item de estoque atualizado com sucesso.');
+}
 
     public function destroy(Store $store)
     {

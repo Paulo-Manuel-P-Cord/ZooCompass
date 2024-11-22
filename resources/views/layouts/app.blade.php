@@ -78,10 +78,13 @@
             background-color: #6e9b77;
             color: white;
         }
+        
     </style>
+    
 </head>
 <body>
     <header>
+        
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ route('dashboard') }}">

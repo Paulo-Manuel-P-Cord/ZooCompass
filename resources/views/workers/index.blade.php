@@ -8,6 +8,10 @@
     <a href="{{ route('workers.create') }}" class="btn btn-success mb-3">
         <i class="bi bi-plus-circle"></i> Criar Funcionário
     </a>
+    <!-- Botão para voltar pro menu -->
+    <a href="{{ route('admin.menu') }}" class="btn btn-secondary mb-3">
+        <i class="bi bi-plus-circle"></i> Voltar ao menu
+    </a>
 
     <!-- Mensagem de sucesso -->
     @if(session('success'))

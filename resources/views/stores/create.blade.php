@@ -38,10 +38,12 @@
         <div class="col-md-6">
             <label for="category" class="form-label">Categoria:</label>
             <select name="category" id="category" class="form-select" required>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
+    @foreach ($categories as $category)
+        <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>
+            {{ $category->name }}
+        </option>
+    @endforeach
+</select>
         </div>
 
         <!-- Botões de Ações -->

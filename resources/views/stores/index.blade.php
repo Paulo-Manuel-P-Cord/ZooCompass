@@ -4,10 +4,15 @@
 <div class="container mt-4">
     <h1 class="mb-4">Lista de Itens de Estoque</h1>
 
-    <!-- Botão para adicionar novo item de estoque -->
+    <!-- Botão para adicionar novo item de estoque e para voltar tambem -->
     <a href="{{ route('stores.create') }}" class="btn btn-success mb-3">
         <i class="bi bi-plus-circle"></i> Adicionar Item
     </a>
+    <!-- Botão para voltar pro menu -->
+    <a href="{{ route('admin.menu') }}" class="btn btn-secondary mb-3">
+        <i class="bi bi-plus-circle"></i> Voltar ao menu
+    </a>
+    
 
     <!-- Mensagem de sucesso -->
     @if(session('success'))

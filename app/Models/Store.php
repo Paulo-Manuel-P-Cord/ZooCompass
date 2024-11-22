@@ -12,12 +12,13 @@ class Store extends Model
     protected $fillable = [
         'name',
         'amount',
-        'category_id', 
+        'category',
     ];
+    
 
     public function category()
-    {
-        return $this->belongsTo(StockCategory::class, 'category'); 
-    }
+{
+    return $this->belongsTo(StockCategory::class, 'category');
+}
 
 }
