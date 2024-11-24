@@ -9,7 +9,16 @@ use Illuminate\Support\Facades\DB;
 
 class AnimalController extends Controller
 {
-    
+    public function welcome()
+{
+    // Busca 6 animais aleatórios
+    $animals = Animal::inRandomOrder()->limit(6)->get(['name', 'diet', 'habitat']);
+
+    // Retorna a view 'welcome' com a variável $animals
+    return view('welcome', compact('animals'));
+}
+
+
 
     public function index()
     {
@@ -71,7 +80,7 @@ class AnimalController extends Controller
     public function edit(Animal $animal)
     {
         if (!Auth::check() || Auth::user()->position != 1) {
-            return redirect()->route('welcome');
+            return redirect()->route('welcome'); 
         }
 
         return view('animals.edit', compact('animal'));

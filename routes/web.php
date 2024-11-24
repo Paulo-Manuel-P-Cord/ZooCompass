@@ -30,6 +30,9 @@ require __DIR__.'/auth.php';
 use App\Http\Controllers\AnimalController;
 Route::get('/animals', [AnimalController::class, 'index'])->name('animals');
 Route::resource('animals', AnimalController::class);
+// Route::get('/', [AnimalController::class, 'welcome'])->name('welcome');
+
+
 
 
 
@@ -53,6 +56,8 @@ Route::resource('stock_categories', StockCategoryController::class);
 
 use App\Http\Controllers\StoreController;
 Route::resource('stores', StoreController::class);
+
+
 
 
 

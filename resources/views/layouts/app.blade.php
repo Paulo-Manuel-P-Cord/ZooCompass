@@ -126,64 +126,80 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
-                    <!-- Menu Animais -->
+
+                   
+
+                    @if (Auth::user()->position == 1)
+                        <!-- Menu Animais -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAnimals" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Animais
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownAnimals">
+                                <li><a class="dropdown-item" href="{{ route('animals.index') }}">Ver Animais</a></li>
+                                <li><a class="dropdown-item" href="{{ route('animals.create') }}">Criar Novo Animal</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu Trabalhadores e Cargos -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownWorkers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Trabalhadores
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownWorkers">
+                                <li><a class="dropdown-item" href="{{ route('workers.index') }}">Ver Trabalhadores</a></li>
+                                <li><a class="dropdown-item" href="{{ route('workers.create') }}">Adicionar Trabalhador</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ route('positions.index') }}">Ver Cargos</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu Estoque -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStock" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Estoque
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownStock">
+                                <li><a class="dropdown-item" href="{{ route('stores.index') }}">Ver Estoque</a></li>
+                                <li><a class="dropdown-item" href="{{ route('stores.create') }}">Adicionar Estoque</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ route('stock_categories.index') }}">Categorias de Estoque</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu Manutenções -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMaintenance" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Manutenções
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMaintenance">
+                                <li><a class="dropdown-item" href="{{ route('maintenances.index') }}">Ver Manutenções</a></li>
+                                <li><a class="dropdown-item" href="{{ route('maintenances.create') }}">Adicionar Manutenção</a></li>
+                            </ul>
+                        </li>
+                    @endif
+
+                    @if (Auth::user()->position == 0)
+                        <!-- Botão Voltar para a página de Welcome -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('welcome') }}">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                        </li>
+                    @endif
+
+                    <!-- Opções do Usuário -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAnimals" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Animais
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                            <img src="{{ asset('imgs/engre.png') }}" alt="Configurações" height="28">
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownAnimals">
-                            <li><a class="dropdown-item" href="{{ route('animals.index') }}">Ver Animais</a></li>
-                            <li><a class="dropdown-item" href="{{ route('animals.create') }}">Criar Novo Animal</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a></li>
+                            <li><a class="dropdown-item" href="{{ route('welcome') }}">Voltar</a></li>
+                            <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a></li>
                         </ul>
                     </li>
-
-                    <!-- Menu Trabalhadores e Cargos -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownWorkers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Trabalhadores
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownWorkers">
-                            <li><a class="dropdown-item" href="{{ route('workers.index') }}">Ver Trabalhadores</a></li>
-                            <li><a class="dropdown-item" href="{{ route('workers.create') }}">Adicionar Trabalhador</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('positions.index') }}">Ver Cargos</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Menu Estoque -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStock" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Estoque
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownStock">
-                            <li><a class="dropdown-item" href="{{ route('stores.index') }}">Ver Estoque</a></li>
-                            <li><a class="dropdown-item" href="{{ route('stores.create') }}">Adicionar Estoque</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('stock_categories.index') }}">Categorias de Estoque</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Menu Manutenções -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStock" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Manutenções
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownStock">
-                            <li><a class="dropdown-item" href="{{ route('maintenances.index') }}">Ver Manutenções</a></li>
-                            <li><a class="dropdown-item" href="{{ route('maintenances.create') }}">Adicionar Manutenção</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ Auth::user()->name }} <!-- Exibe o nome do usuário -->
-        <img src="{{ asset('imgs/engre.png') }}" alt="Configurações" height="28"> <!-- Imagem ao lado -->
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
-        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a></li> <!-- Link para editar o perfil -->
-        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a></li> <!-- Link para sair -->
-    </ul>
-</li>
                 </ul>
             </div>
         </div>
@@ -194,6 +210,8 @@
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     @csrf
 </form>
+
+
 
 
     <div class="content-wrapper">
