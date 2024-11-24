@@ -57,4 +57,24 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    // Método para trocar a senha do usuário
+public function changePassword(Request $request): RedirectResponse
+{
+    // Validação do formulário
+    $request->validate([
+        'current_password' => ['required', 'current_password'],
+        'new_password' => ['required', 'min:8', 'confirmed'],
+    ]);
+
+    // Recupera o usuário autenticado
+    $user = $request->user();
+
+    // Atualiza a senha
+    $user->password = bcrypt($request->new_password);
+    $user->save();
+
+    // Retorna para o perfil com uma mensagem de sucesso
+    return Redirect::route('profile.edit')->with('status', 'password-updated');
+}
+
 }

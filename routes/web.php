@@ -16,11 +16,13 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::patch('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/auth.php';
 
@@ -51,7 +53,6 @@ Route::resource('stock_categories', StockCategoryController::class);
 
 use App\Http\Controllers\StoreController;
 Route::resource('stores', StoreController::class);
-
 
 
 

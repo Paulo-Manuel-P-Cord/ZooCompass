@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +34,6 @@
             flex: 1;
             min-height: 0; /* Para ajustar corretamente na responsividade */
         }
-
 
         .ul.nav {
             list-style: none;
@@ -74,27 +72,37 @@
         }
 
         .dropdown-menu {
-        background-color: #567d5f;
-        border: none;
-        border-radius: 5px;
-    }
+            background-color: #567d5f;
+            border: none;
+            border-radius: 5px;
+        }
 
-    .dropdown-menu .dropdown-item {
-        color: #f8f9fa;
-    }
+        .dropdown-menu .dropdown-item {
+            color: #f8f9fa;
+        }
 
-    .dropdown-menu .dropdown-item:hover {
-        background-color: #88b892;
-        color: #fff;
-    }
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #88b892;
+            color: #fff;
+        }
 
-    .nav-link, .navbar-brand {
-        color: #fff;
-    }
+        .nav-link, .navbar-brand {
+            color: #fff;
+        }
 
-    .nav-link:hover, .nav-link:focus {
-        color: #cce3d3;
-    }
+        .nav-link:hover, .nav-link:focus {
+            color: #cce3d3;
+        }
+
+        /* Customização para a parte de usuário */
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            margin-left: 8px;
+        }
 
         footer {
             text-align: center;
@@ -102,7 +110,6 @@
             background-color: #6e9b77;
             color: white;
         }
-        
     </style>
     
 </head>
@@ -167,25 +174,34 @@
                         </ul>
                     </li>
 
-                    <!-- Configurações e Usuário -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" role="button">Paulo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="{{ asset('imgs/engre.png') }}" alt="Configurações" height="28"></a>
-                    </li>
+                    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ Auth::user()->name }} <!-- Exibe o nome do usuário -->
+        <img src="{{ asset('imgs/engre.png') }}" alt="Configurações" height="28"> <!-- Imagem ao lado -->
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
+        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a></li> <!-- Link para editar o perfil -->
+        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a></li> <!-- Link para sair -->
+    </ul>
+</li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
 
+<!-- Formulário de Logout -->
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
+
 
     <div class="content-wrapper">
         
 
-        <!-- Conteúdo Principal -->
-        <div class="main-content" style="background-color: #567d5f; margin-top: 71px">
+
+
+      <div class="main-content" style="background-color: #567d5f; margin-top: 71px">
             @yield('content')
         </div>
     </div>
