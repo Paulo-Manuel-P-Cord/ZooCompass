@@ -7,12 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- jQuery -->
+
+    <!-- jQuery + Plugins -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
+
     <!-- Estilos customizados -->
     <style>
         body {
@@ -32,7 +32,7 @@
         .content-wrapper {
             display: flex;
             flex: 1;
-            min-height: 0; /* Para ajustar corretamente na responsividade */
+            min-height: 0;
         }
 
         .ul.nav {
@@ -72,13 +72,18 @@
         }
 
         .dropdown-menu {
+            display: none;
+            position: static;
+            float: none;
             background-color: #567d5f;
             border: none;
             border-radius: 5px;
+            padding: 0.5rem 0;
         }
 
         .dropdown-menu .dropdown-item {
             color: #f8f9fa;
+            padding: 0.5rem 1rem;
         }
 
         .dropdown-menu .dropdown-item:hover {
@@ -88,13 +93,13 @@
 
         .nav-link, .navbar-brand {
             color: #fff;
+            cursor: pointer;
         }
 
         .nav-link:hover, .nav-link:focus {
             color: #cce3d3;
         }
 
-        /* Customização para a parte de usuário */
         .user-info {
             display: flex;
             align-items: center;
@@ -111,94 +116,83 @@
             color: white;
         }
     </style>
-    
 </head>
 <body>
-    
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('admin.menu') }}">
                 <img src="{{ asset('imgs/logo.png') }}" alt="Logo do Zoológico"> Zoo Compass
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
-
-                   
-
                     @if (Auth::user()->position == 1)
-                        <!-- Menu Animais -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAnimals" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Animais
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownAnimals">
-                                <li><a class="dropdown-item" href="{{ route('animals.index') }}">Ver Animais</a></li>
-                                <li><a class="dropdown-item" href="{{ route('animals.create') }}">Criar Novo Animal</a></li>
-                            </ul>
-                        </li>
+                    <!-- Animais -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle manual-dropdown" id="animalsMenu">Animais</a>
+                        <div class="dropdown-menu" aria-labelledby="animalsMenu">
+                            <a class="dropdown-item" href="{{ route('animals.index') }}">Ver Animais</a>
+                            <a class="dropdown-item" href="{{ route('animals.create') }}">Criar Novo Animal</a>
+                        </div>
+                    </li>
 
-                        <!-- Menu Trabalhadores e Cargos -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownWorkers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Trabalhadores
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownWorkers">
-                                <li><a class="dropdown-item" href="{{ route('workers.index') }}">Ver Trabalhadores</a></li>
-                                <li><a class="dropdown-item" href="{{ route('workers.create') }}">Adicionar Trabalhador</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ route('positions.index') }}">Ver Cargos</a></li>
-                            </ul>
-                        </li>
+                    <!-- Trabalhadores -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle manual-dropdown" id="workersMenu">Trabalhadores</a>
+                        <div class="dropdown-menu" aria-labelledby="workersMenu">
+                            <a class="dropdown-item" href="{{ route('workers.index') }}">Ver Trabalhadores</a>
+                            <a class="dropdown-item" href="{{ route('workers.create') }}">Adicionar Trabalhador</a>
+                            <hr class="dropdown-divider">
+                            <a class="dropdown-item" href="{{ route('positions.index') }}">Ver Cargos</a>
+                        </div>
+                    </li>
 
-                        <!-- Menu Estoque -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStock" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Estoque
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownStock">
-                                <li><a class="dropdown-item" href="{{ route('stores.index') }}">Ver Estoque</a></li>
-                                <li><a class="dropdown-item" href="{{ route('stores.create') }}">Adicionar Estoque</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ route('stock_categories.index') }}">Categorias de Estoque</a></li>
-                            </ul>
-                        </li>
+                    <!-- Estoque -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle manual-dropdown" id="stockMenu">Estoque</a>
+                        <div class="dropdown-menu" aria-labelledby="stockMenu">
+                            <a class="dropdown-item" href="{{ route('stores.index') }}">Ver Estoque</a>
+                            <a class="dropdown-item" href="{{ route('stores.create') }}">Adicionar Estoque</a>
+                            <hr class="dropdown-divider">
+                            <a class="dropdown-item" href="{{ route('stock_categories.index') }}">Categorias de Estoque</a>
+                        </div>
+                    </li>
 
-                        <!-- Menu Manutenções -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMaintenance" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Manutenções
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMaintenance">
-                                <li><a class="dropdown-item" href="{{ route('maintenances.index') }}">Ver Manutenções</a></li>
-                                <li><a class="dropdown-item" href="{{ route('maintenances.create') }}">Adicionar Manutenção</a></li>
-                            </ul>
-                        </li>
+                    <!-- Manutenções -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle manual-dropdown" id="maintenanceMenu">Manutenções</a>
+                        <div class="dropdown-menu" aria-labelledby="maintenanceMenu">
+                            <a class="dropdown-item" href="{{ route('maintenances.index') }}">Ver Manutenções</a>
+                            <a class="dropdown-item" href="{{ route('maintenances.create') }}">Adicionar Manutenção</a>
+                        </div>
+                    </li>
                     @endif
 
                     @if (Auth::user()->position == 0)
-                        <!-- Botão Voltar para a página de Welcome -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('welcome') }}">
-                                <i class="fas fa-arrow-left"></i> Voltar
-                            </a>
-                        </li>
+                    <!-- Botão Voltar -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('welcome') }}">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                    </li>
                     @endif
 
-                    <!-- Opções do Usuário -->
+                    <!-- Usuário -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle manual-dropdown" id="userMenu">
                             {{ Auth::user()->name }}
                             <img src="{{ asset('imgs/engre.png') }}" alt="Configurações" height="28">
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a></li>
-                            <li><a class="dropdown-item" href="{{ route('welcome') }}">Voltar</a></li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a></li>
-                        </ul>
+                        <div class="dropdown-menu" aria-labelledby="userMenu">
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a>
+                            <a class="dropdown-item" href="{{ route('welcome') }}">Voltar</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -206,29 +200,46 @@
     </nav>
 </header>
 
-<!-- Formulário de Logout -->
+<!-- Logout -->
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     @csrf
 </form>
 
-
-
-
-    <div class="content-wrapper">
-        
-
-
-
-      <div class="main-content" style="background-color: #567d5f; margin-top: 71px">
-            @yield('content')
-        </div>
+<div class="content-wrapper">
+    <div class="main-content" style="background-color: #567d5f; margin-top: 71px">
+        @yield('content')
     </div>
+</div>
 
-    <footer>
-        &copy; 2024 ZooCompass. Todos os direitos reservados.
-    </footer>
+<footer>
+    &copy; 2024 ZooCompass. Todos os direitos reservados.
+</footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery Animations -->
+<script>
+$(document).ready(function () {
+    $('.manual-dropdown').on('click', function (e) {
+        e.preventDefault();
+        const $menu = $(this).next('.dropdown-menu');
+
+        // Fecha os outros
+        $('.dropdown-menu').not($menu).slideUp(200);
+
+        // Alterna o atual
+        $menu.stop(true, true).slideToggle(200);
+    });
+
+    // Fecha ao clicar fora
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.nav-item.dropdown').length) {
+            $('.dropdown-menu').slideUp(200);
+        }
+    });
+});
+</script>
+
 </body>
 </html>

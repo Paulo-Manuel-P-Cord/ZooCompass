@@ -1,73 +1,57 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\StockCategoryController;
+use App\Http\Controllers\StoreController;
+use App\Http\Middleware\CheckAdminPosition;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', fn () => view('welcome'));
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', fn () => view('dashboard'))
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/welcome', fn () => view('welcome'))->name('welcome');
 
+// Profile
 Route::patch('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 require __DIR__.'/auth.php';
 
-
-use App\Http\Controllers\AnimalController;
+// Animais
 Route::get('/animals', [AnimalController::class, 'index'])->name('animals');
 Route::resource('animals', AnimalController::class);
-// Route::get('/', [AnimalController::class, 'welcome'])->name('welcome');
 
-
-
-
-
-use App\Http\Controllers\PositionController;
+// Posições
 Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
 Route::resource('positions', PositionController::class);
 
-
-
-use App\Http\Controllers\WorkerController;
+// Trabalhadores
 Route::resource('workers', WorkerController::class);
 
-
-use App\Http\Controllers\MaintenanceController;
+// Manutenções
 Route::resource('maintenances', MaintenanceController::class);
 
-
-use App\Http\Controllers\StockCategoryController;
+// Categorias de Estoque
 Route::resource('stock_categories', StockCategoryController::class);
 
-
-use App\Http\Controllers\StoreController;
+// Lojas
 Route::resource('stores', StoreController::class);
 
-
-
-
-
+// Admin Menu (protegido por auth e CheckAdminPosition)
 Route::get('/admin/menu', function () {
-    // Verifica se o usuário está autenticado e se a posição é diferente de 1
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
-    }
-
-    // Coleta os dados necessários
     $animals = [
         'species_by_diet' => \DB::table('animals')
             ->join('animal_type', 'animals.diet', '=', 'animal_type.id')
@@ -146,4 +130,4 @@ Route::get('/admin/menu', function () {
     ];
 
     return view('admin.menu', compact('modules'));
-})->middleware('auth')->name('admin.menu');
+})->middleware(['auth', CheckAdminPosition::class])->name('admin.menu');
