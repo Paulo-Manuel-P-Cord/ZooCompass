@@ -11,14 +11,17 @@ use Illuminate\Support\Facades\Auth;
 class MaintenanceController extends Controller
 {
     public function index()
-    {
-        if (!Auth::check() || Auth::user()->position != 1) {
-            return redirect()->route('welcome');
-        }
-
-        $maintenances = Maintenance::all();
-        return view('maintenances.index', compact('maintenances'));
+{
+    if (!Auth::check() || Auth::user()->position != 1) {
+        return redirect()->route('welcome');
     }
+
+    $maintenances = Maintenance::all();
+    $animals = Animal::all(); 
+    $workers = Worker::with('position')->get()->sortBy('position.title');
+
+    return view('maintenances.index', compact('maintenances', 'animals', 'workers'));
+}
 
     public function create()
     {

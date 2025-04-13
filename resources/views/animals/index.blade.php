@@ -2,77 +2,83 @@
 
 @section('content')
 <div class="container mt-4">
-    <!-- Título principal -->
-    <h1 class="w-100 py-3 bg-gradient text-white text-center rounded-3 shadow-sm mb-4">
-        <i class="bi bi-list-ul me-2"></i>Lista de Animais
-    </h1>
+    <div class="card shadow rounded-4 border-0">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">🐾 Lista de Animais</h2>
+                <div>
+                    <!-- Botão para adicionar novo animal -->
+                    <button class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#animalModal">
+                        <i class="bi bi-plus-circle"></i> Adicionar Animal
+                    </button>
+                    <a href="{{ route('admin.menu') }}" class="btn btn-outline-dark rounded-pill">
+                        <i class="bi bi-arrow-left-circle"></i> Voltar ao Menu
+                    </a>
+                </div>
+            </div>
 
-    <div class="d-flex justify-content-between mb-4 flex-wrap gap-2">
-        <!-- Botão: Abrir modal -->
-        <button class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#animalModal">
-            <i class="bi bi-plus-circle me-1"></i> Adicionar Animal
-        </button>
+            {{-- Alerta de sucesso --}}
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle-fill me-1"></i>
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+            @endif
 
-        <!-- Botão: Voltar ao menu -->
-        <a href="{{ route('admin.menu') }}" class="btn btn-outline-dark rounded-pill">
-            <i class="bi bi-arrow-left me-1"></i> Voltar ao Menu
-        </a>
-    </div>
+            {{-- Tabela de animais --}}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center table-bordered table-striped shadow-sm">
+                    <thead class="table-dark text-white">
+                        <tr>
+                            <th>Animal</th>
+                            <th>Dieta</th>
+                            <th>Habitat</th>
+                            <th>Quantidade</th>
+                            <th>Origem</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($animals as $animal)
+                            <tr>
+                                <td>{{ $animal->animal }}</td>
+                                <td>{{ $animal->diet_name }}</td>
+                                <td>{{ $animal->habitat }}</td>
+                                <td>{{ $animal->amount }}</td>
+                                <td>{{ $animal->origin }}</td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        {{-- Botão Editar --}}
+                                        <button 
+                                            class="btn btn-outline-success btn-sm rounded-pill" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#editAnimalModal{{ $animal->id }}">
+                                            <i class="bi bi-pencil"></i> Editar
+                                        </button>
 
-    <!-- Mensagem de sucesso -->
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-            <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                                        {{-- Botão Deletar --}}
+                                        <button 
+                                            class="btn btn-outline-danger btn-sm rounded-pill" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#deleteAnimalModal{{ $animal->id }}">
+                                            <i class="bi bi-trash"></i> Deletar
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-muted">Nenhum animal registrado.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
-    @endif
-
-    <!-- Tabela -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover shadow-sm border border-success bg-success bg-opacity-25">
-            <thead class="table-success text-white text-center">
-                <tr>
-                    <th>Animal</th>
-                    <th>Dieta</th>
-                    <th>Habitat</th>
-                    <th>Quantidade</th>
-                    <th>Origem</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($animals as $animal)
-                    <tr class="text-center">
-                        <td class="text-dark">{{ $animal->animal }}</td>
-                        <td class="text-dark">{{ $animal->diet_name }}</td>
-                        <td class="text-dark">{{ $animal->habitat }}</td>
-                        <td class="text-dark">{{ $animal->amount }}</td>
-                        <td class="text-dark">{{ $animal->origin }}</td>
-                        <td>
-                            <div class="d-flex justify-content-center gap-2">
-                            <button 
-    class="btn btn-outline-success btn-sm rounded-pill" 
-    data-bs-toggle="modal" 
-    data-bs-target="#editAnimalModal{{ $animal->id }}">
-    <i class="bi bi-pencil"></i> Editar
-</button>
-
-                                <!-- Botão para abrir o modal de confirmação -->
-<button 
-    class="btn btn-outline-danger btn-sm rounded-pill" 
-    data-bs-toggle="modal" 
-    data-bs-target="#deleteAnimalModal{{ $animal->id }}">
-    <i class="bi bi-trash"></i> Deletar
-</button>
-
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
     </div>
 </div>
+
 
 @foreach ($animals as $animal)
 <!-- Modal de Confirmação de Exclusão -->
