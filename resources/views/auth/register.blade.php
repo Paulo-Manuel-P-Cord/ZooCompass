@@ -98,7 +98,7 @@
 
                         <!-- Submit Button -->
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="{{ route('login') }}" class="text-light">Already registered?</a>
+                            <a href="{{ route('login') }}" class="text-light">ja tem uma uma conta?</a>
                             <button type="submit" class="btn btn-light">Register</button>
                         </div>
                     </form>

@@ -13,7 +13,7 @@
         @foreach ($modules as $module)
             @if ($module['name'] == 'Animals')
                 <div class="col-md-6 mb-4">
-                    <div class="card shadow-lg border-success rounded-3">
+                    <div class="card shadow-lg border-success  rounded-3">
                         <div class="card-body">
                             <h5 class="card-title text-success">{{ $module['name'] }}</h5>
                             <p class="card-text">{{ $module['description'] }}</p>
@@ -263,7 +263,7 @@
                                 <thead class="table-success">
                                     <tr>
                                         <th scope="col">Descrição</th>
-                                        <th scope="col">Valor</th>
+                                        <th scope="col">Quantidade</th>
                                     </tr>
                                 </thead>
                                 <tbody>

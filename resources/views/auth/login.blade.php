@@ -92,7 +92,7 @@
                         <!-- Submit Button -->
                         <div class="d-flex justify-content-between align-items-center">
                             @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="text-light">Forgot your password?</a>
+                                <a href="{{ route('register') }}" class="text-light">Registre-se aqui?</a>
                             @endif
                             <button type="submit" class="btn btn-light">Log in</button>
                         </div>

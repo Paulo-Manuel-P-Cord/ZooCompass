@@ -29,6 +29,10 @@
             min-height: 100vh;
         }
 
+        .bg-light-success {
+    background-color:rgba(114, 161, 133, 0.53); /* tom bem leve de verde */
+}
+
         header, footer {
             flex-shrink: 0;
         }
@@ -141,7 +145,7 @@
                         <a class="nav-link dropdown-toggle manual-dropdown" id="animalsMenu">Animais</a>
                         <div class="dropdown-menu" aria-labelledby="animalsMenu">
                             <a class="dropdown-item" href="{{ route('animals.index') }}">Ver Animais</a>
-                            <a class="dropdown-item" href="{{ route('animals.create') }}">Criar Novo Animal</a>
+                            
                         </div>
                     </li>
 
