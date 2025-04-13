@@ -13,18 +13,22 @@ class StoreController extends Controller
    
     
     public function index()
-    {
-        if (!Auth::check() || Auth::user()->position != 1) {
-            return redirect()->route('welcome');
-        }
-
-        $stores = DB::table('stores')
-            ->join('stock_categories', 'stores.category', '=', 'stock_categories.id')
-            ->select('stores.*', 'stock_categories.name as category_name') 
-            ->get();
-    
-        return view('stores.index', compact('stores'));
+{
+    if (!Auth::check() || Auth::user()->position != 1) {
+        return redirect()->route('welcome');
     }
+
+    $stores = DB::table('stores')
+        ->join('stock_categories', 'stores.category', '=', 'stock_categories.id')
+        ->select('stores.*', 'stock_categories.name as category_name') 
+        ->get();
+    
+    // Carrega as categorias para o modal de criação de item
+    $categories = StockCategory::all();
+
+    return view('stores.index', compact('stores', 'categories'));
+}
+
 
 
     public function create()
