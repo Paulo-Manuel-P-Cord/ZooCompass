@@ -144,8 +144,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle manual-dropdown" id="animalsMenu">Animais</a>
                         <div class="dropdown-menu" aria-labelledby="animalsMenu">
-                            <a class="dropdown-item" href="{{ route('animals.index') }}">Ver Animais</a>
-                            
+                            <a class="dropdown-item" href="{{ route('animals.index') }}">Ver Animais</a>  
                         </div>
                     </li>
 
@@ -154,7 +153,6 @@
                         <a class="nav-link dropdown-toggle manual-dropdown" id="workersMenu">Trabalhadores</a>
                         <div class="dropdown-menu" aria-labelledby="workersMenu">
                             <a class="dropdown-item" href="{{ route('workers.index') }}">Ver Trabalhadores</a>
-                            <a class="dropdown-item" href="{{ route('workers.create') }}">Adicionar Trabalhador</a>
                             <hr class="dropdown-divider">
                             <a class="dropdown-item" href="{{ route('positions.index') }}">Ver Cargos</a>
                         </div>
@@ -165,7 +163,6 @@
                         <a class="nav-link dropdown-toggle manual-dropdown" id="stockMenu">Estoque</a>
                         <div class="dropdown-menu" aria-labelledby="stockMenu">
                             <a class="dropdown-item" href="{{ route('stores.index') }}">Ver Estoque</a>
-                            <a class="dropdown-item" href="{{ route('stores.create') }}">Adicionar Estoque</a>
                             <hr class="dropdown-divider">
                             <a class="dropdown-item" href="{{ route('stock_categories.index') }}">Categorias de Estoque</a>
                         </div>
@@ -176,7 +173,6 @@
                         <a class="nav-link dropdown-toggle manual-dropdown" id="maintenanceMenu">Manutenções</a>
                         <div class="dropdown-menu" aria-labelledby="maintenanceMenu">
                             <a class="dropdown-item" href="{{ route('maintenances.index') }}">Ver Manutenções</a>
-                            <a class="dropdown-item" href="{{ route('maintenances.create') }}">Adicionar Manutenção</a>
                         </div>
                     </li>
                     @endif

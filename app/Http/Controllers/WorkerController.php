@@ -44,14 +44,17 @@ class WorkerController extends Controller
     }
 
     public function index()
-    {
-        if (!Auth::check() || Auth::user()->position != 1) {
-            return redirect()->route('welcome');
-        }
-
-        $workers = Worker::with('position')->get(); 
-        return view('workers.index', compact('workers'));
+{
+    if (!Auth::check() || Auth::user()->position != 1) {
+        return redirect()->route('welcome');
     }
+
+    $workers = Worker::with('position')->get(); 
+    $positions = DB::table('positions')->select('id', 'title')->get();
+
+    return view('workers.index', compact('workers', 'positions'));
+}
+
 
     public function edit($id)
 {
