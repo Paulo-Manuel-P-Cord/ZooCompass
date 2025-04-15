@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\StockCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 
 class StockCategoryController extends Controller
 {
@@ -52,44 +52,44 @@ class StockCategoryController extends Controller
     }
 
     public function edit(StockCategory $stock_category)
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
-    }
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
 
-    return view('stock_categories.edit', compact('stock_category'));
-}
+        return view('stock_categories.edit', compact('stock_category'));
+    }
 
     public function update(Request $request, StockCategory $stock_category)
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
+
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+
+        $stock_category->update($validated);
+
+
+        return redirect()
+            ->route('stock_categories.index')
+            ->with('success', 'Categoria atualizada com sucesso!');
     }
 
 
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-    ]);
+    public function destroy(StockCategory $stock_category)
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
 
+        $stock_category->delete();
 
-    $stock_category->update($validated);
-
-
-    return redirect()
-        ->route('stock_categories.index')
-        ->with('success', 'Categoria atualizada com sucesso!');
-}
-
-    
-public function destroy(StockCategory $stock_category)
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
+        return redirect()->route('stock_categories.index')->with('success', 'Categoria excluída com sucesso!');
     }
-    
-    $stock_category->delete();
-
-    return redirect()->route('stock_categories.index')->with('success', 'Categoria excluída com sucesso!');
-}
 }

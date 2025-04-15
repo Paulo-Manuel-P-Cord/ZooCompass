@@ -11,7 +11,7 @@ class Position extends Model
 
     protected $fillable = [
         'title',
-        
+
     ];
 
     public function workers()

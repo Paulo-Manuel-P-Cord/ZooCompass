@@ -6,22 +6,22 @@ use App\Models\Maintenance;
 use App\Models\Animal;
 use App\Models\Worker;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 
 class MaintenanceController extends Controller
 {
     public function index()
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
+
+        $maintenances = Maintenance::all();
+        $animals = Animal::all();
+        $workers = Worker::with('position')->get()->sortBy('position.title');
+
+        return view('maintenances.index', compact('maintenances', 'animals', 'workers'));
     }
-
-    $maintenances = Maintenance::all();
-    $animals = Animal::all(); 
-    $workers = Worker::with('position')->get()->sortBy('position.title');
-
-    return view('maintenances.index', compact('maintenances', 'animals', 'workers'));
-}
 
     public function create()
     {
@@ -29,8 +29,8 @@ class MaintenanceController extends Controller
             return redirect()->route('welcome');
         }
 
-        $animals = Animal::all(); 
-        $workers = Worker::with('position')->get()->sortBy('position.title'); 
+        $animals = Animal::all();
+        $workers = Worker::with('position')->get()->sortBy('position.title');
         return view('maintenances.create', compact('animals', 'workers'));
     }
 
@@ -70,7 +70,7 @@ class MaintenanceController extends Controller
             return redirect()->route('welcome');
         }
 
-        $animals = Animal::all(); 
+        $animals = Animal::all();
         $workers = Worker::with('position')->get()->sortBy('position.title');
         return view('maintenances.edit', compact('maintenance', 'animals', 'workers'));
     }
@@ -100,7 +100,7 @@ class MaintenanceController extends Controller
         if (!Auth::check() || Auth::user()->position != 1) {
             return redirect()->route('welcome');
         }
-        
+
         $maintenance->delete();
         return redirect()->route('maintenances.index')->with('success', 'Manutenção deletada com sucesso.');
     }

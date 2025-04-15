@@ -6,7 +6,7 @@ use App\Models\Worker;
 use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 
 class WorkerController extends Controller
 {
@@ -18,7 +18,7 @@ class WorkerController extends Controller
         }
 
         $positions = DB::table('positions')
-            ->select('positions.id', 'positions.title') 
+            ->select('positions.id', 'positions.title')
             ->get();
 
         return view('workers.create', compact('positions'));
@@ -44,68 +44,68 @@ class WorkerController extends Controller
     }
 
     public function index()
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
+
+        $workers = Worker::with('position')->get();
+        $positions = DB::table('positions')->select('id', 'title')->get();
+
+        return view('workers.index', compact('workers', 'positions'));
     }
-
-    $workers = Worker::with('position')->get(); 
-    $positions = DB::table('positions')->select('id', 'title')->get();
-
-    return view('workers.index', compact('workers', 'positions'));
-}
 
 
     public function edit($id)
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
+
+        $worker = Worker::findOrFail($id);
+
+        $positions = Position::all();
+
+        return view('workers.edit', compact('worker', 'positions'));
     }
 
-    $worker = Worker::findOrFail($id);
 
-    $positions = Position::all(); 
+    public function destroy($id)
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
 
-    return view('workers.edit', compact('worker', 'positions'));
-}
+        $worker = Worker::findOrFail($id);
 
+        $worker->delete();
 
-public function destroy($id)
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
+        return redirect()->route('workers.index')->with('success', 'Funcionário deletado com sucesso!');
     }
+    public function update(Request $request, $id)
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
 
-    $worker = Worker::findOrFail($id);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:workers,email,' . $id,
+            'phone' => 'required|string|max:15',
+            'hire_date' => 'required|date',
+            'position_id' => 'required|exists:positions,id',
+        ]);
 
-    $worker->delete();
+        $worker = Worker::findOrFail($id);
 
-    return redirect()->route('workers.index')->with('success', 'Funcionário deletado com sucesso!');
-}
-public function update(Request $request, $id)
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
+        $worker->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'hire_date' => $request->hire_date,
+            'position_id' => $request->position_id,
+        ]);
+
+        return redirect()->route('workers.index')->with('success', 'Trabalhador atualizado com sucesso!');
     }
-
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:workers,email,' . $id,
-        'phone' => 'required|string|max:15',
-        'hire_date' => 'required|date',
-        'position_id' => 'required|exists:positions,id',
-    ]);
-
-    $worker = Worker::findOrFail($id);
-
-    $worker->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'hire_date' => $request->hire_date,
-        'position_id' => $request->position_id,
-    ]);
-
-    return redirect()->route('workers.index')->with('success', 'Trabalhador atualizado com sucesso!');
-}
 }

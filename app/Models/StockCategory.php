@@ -12,7 +12,7 @@ class StockCategory extends Model
     protected $table = 'stock_categories';
 
     protected $fillable = [
-        'name', 
+        'name',
         'description'
     ];
 }

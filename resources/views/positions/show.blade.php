@@ -10,7 +10,7 @@
 
     <a href="{{ route('positions.edit', $position->id) }}">Editar</a>
     <form action="{{ route('positions.destroy', $position->id) }}" method="POST ```blade
-" style="display:inline;">
+    " style="display:inline;">
         @csrf
         @method('DELETE')
         <button type="submit">Deletar</button>

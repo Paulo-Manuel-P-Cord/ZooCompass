@@ -4,23 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Position;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 
 class PositionController extends Controller
 {
-    
+
     public function index()
-{
-    if (!Auth::check() || Auth::user()->position != 1) {
-        return redirect()->route('welcome');
+    {
+        if (!Auth::check() || Auth::user()->position != 1) {
+            return redirect()->route('welcome');
+        }
+
+
+        $positions = Position::all();
+
+
+        return view('positions.index', compact('positions'));
     }
-
-
-    $positions = Position::all();
-
-
-    return view('positions.index', compact('positions'));
-}
 
     public function create()
     {
@@ -37,7 +37,7 @@ class PositionController extends Controller
         }
         $request->validate([
             'title' => 'required|string|max:100',
-            'description' => 'nullable|string|max:255', 
+            'description' => 'nullable|string|max:255',
         ]);
 
         Position::create($request->all());
@@ -70,7 +70,7 @@ class PositionController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:100',
-            'description' => 'nullable|string|max:255', 
+            'description' => 'nullable|string|max:255',
         ]);
 
         $position->update($request->all());
